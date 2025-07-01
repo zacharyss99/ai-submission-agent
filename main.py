@@ -1,12 +1,13 @@
 from scraper import scrape_chatgpt_share_url
 from evaluator import evaluate_conversation
 from notifier import log_submission
+import asyncio
 
 def process_submission(url, student_email, assignment_name):
     print("Starting submission processing...")
 
     try:
-        conversation = scrape_chatgpt_share_url(url)
+        conversation = asyncio.run(scrape_chatgpt_share_url(url))
     except Exception as e:
         return {
             "student_message": "❌ We couldn't access your ChatGPT link. Please make sure it is publicly shared and try again.",
